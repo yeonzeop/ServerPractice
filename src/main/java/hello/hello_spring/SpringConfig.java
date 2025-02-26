@@ -12,21 +12,15 @@ import java.rmi.MarshalException;
 
 @Configuration
 public class SpringConfig {
-    private final DataSource dataSource;
-    private final EntityManager em;
-    public SpringConfig(DataSource dataSource, EntityManager em) {
-        this.dataSource = dataSource;
-        this.em = em;
+    private final MemberRepository memberRepository;
+
+    public SpringConfig(MemberRepository memberRepository) {
+        this.memberRepository = memberRepository;
     }
 
     @Bean
-    public MemberService memberService(){
-        return new MemberService(memberRepository());
-    }
-
-    @Bean
-    public MemberRepository memberRepository(){
-        return new JpaMemberRepository(em);
+    public MemberService memberService() {
+        return new MemberService(memberRepository);
     }
 
 }
